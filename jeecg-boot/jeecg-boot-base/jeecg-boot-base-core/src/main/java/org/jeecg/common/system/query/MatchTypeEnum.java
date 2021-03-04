@@ -1,5 +1,6 @@
 package org.jeecg.common.system.query;
 
+import org.apache.commons.lang.StringUtils;
 import org.jeecg.common.util.oConvertUtils;
 
 /**

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.match.mapper.MatchScoreMapper">
+
+	<delete id="deleteByMainId" parameterType="java.lang.String">
+		DELETE
+		FROM  match_score_copy1
+		WHERE
+			 sportsman_id = #{id}
+	</delete>
+
+	<select id="selectByMainId" parameterType="java.lang.String" resultType="org.jeecg.modules.match.entity.MatchScore">
+		SELECT *
+		FROM  match_score_copy1
+		WHERE
+			 sportsman_id = #{id}
+	</select>
+
+	<select id="getMatchBySportsmanId" resultType="org.jeecg.modules.match.entity.MatchScore">
+		select * from match_plan where id in (select match_id from match_member_connect where sportsman_id=#{sportsmanId})
+		<if test="matchName!=null and matchName!=''">
+			and matchName = #{matchName}
+		</if>
+	</select>
+</mapper>

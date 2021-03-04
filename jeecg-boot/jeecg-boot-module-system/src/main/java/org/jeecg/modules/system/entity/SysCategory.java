@@ -1,14 +1,17 @@
 package org.jeecg.modules.system.entity;
 
+import java.io.Serializable;
+
+import org.apache.commons.lang.StringUtils;
+import org.jeecgframework.poi.excel.annotation.Excel;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-import org.jeecgframework.poi.excel.annotation.Excel;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.io.Serializable;
+import lombok.Data;
 
 /**
  * @Description: 分类字典

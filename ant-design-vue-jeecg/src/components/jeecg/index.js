@@ -27,13 +27,6 @@ import JSwitch from './JSwitch.vue'
 import JTime from './JTime.vue'
 import JTreeTable from './JTreeTable.vue'
 
-//jeecgbiz
-import JSelectDepart from '../jeecgbiz/JSelectDepart.vue'
-import JSelectMultiUser from '../jeecgbiz/JSelectMultiUser.vue'
-import JSelectPosition from '../jeecgbiz/JSelectPosition.vue'
-import JSelectRole from '../jeecgbiz/JSelectRole.vue'
-import JSelectUserByDep from '../jeecgbiz/JSelectUserByDep.vue'
-
 export default {
   install(Vue) {
     Vue.component('JMarkdownEditor', JMarkdownEditor)
@@ -64,12 +57,5 @@ export default {
     Vue.component('JTreeSelect', JTreeSelect)
     Vue.component('JTreeTable', JTreeTable)
     Vue.component('JUpload', JUpload)
-
-    //jeecgbiz
-    Vue.component('JSelectDepart', JSelectDepart)
-    Vue.component('JSelectMultiUser', JSelectMultiUser)
-    Vue.component('JSelectPosition', JSelectPosition)
-    Vue.component('JSelectRole', JSelectRole)
-    Vue.component('JSelectUserByDep', JSelectUserByDep)
   }
 }

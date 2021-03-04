@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.training.mapper.WeekPlanMapper">
+
+
+    <insert id="insertTrainingScore" parameterType="java.lang.String">
+        insert ignore into training_scoree
+        select r.id,t.id,replace(r.sub_second,':',''),r.create_by,r.create_time,r.update_by,r.update_time,r.sys_org_code
+        from training_distance t,rest_api_copy1 r,training_score_copy1 tt
+        where r.sub_second != '' and (t.id,tt.id) in (select id,sportsman_id
+        from training_distance
+        where (period,training_group_id,distance,training_item_no,training_item,group_no,coach_name,is_highland,bao_gan,tang_shu,support_item,create_time,create_by) in
+        (select w.period,w.training_group_id,w.distance,w.training_item_no,w.training_item,w.group_no,w.coach_name,w.is_highland,w.bao_gan,w.tang_shu,w.support_item,w.create_time,w.create_by
+        from week_plan w
+        where w.id = #{mainId})) and r.name = tt.name and t.sportsman_id in
+        (select id
+        from training_score_copy1
+        where training_flag= 0)
+    </insert>
+
+</mapper>

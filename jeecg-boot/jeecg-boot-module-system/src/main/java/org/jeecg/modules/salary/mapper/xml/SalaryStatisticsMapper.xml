@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.salary.mapper.SalaryStatisticsMapper">
+
+<!--    <select id="sendMail" parameterMap="java.lang.String" resultType="org.jeecg.modules.salary.entity.SalaryStatistics">-->
+<!--        select *-->
+<!--        from salary_statistics-->
+<!--        where id = #{mainid}-->
+<!--    </select>-->
+
+</mapper>

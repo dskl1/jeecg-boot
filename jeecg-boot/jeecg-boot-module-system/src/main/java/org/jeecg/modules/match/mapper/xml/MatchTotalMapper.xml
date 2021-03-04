@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.match.mapper.MatchTotalMapper">
+
+	<delete id="deleteByMainId" parameterType="java.lang.String">
+		DELETE
+		FROM  match_total
+		WHERE
+			 sportsman_id = #{id}
+	</delete>
+
+	<select id="selectByMainId" parameterType="java.lang.String" resultType="org.jeecg.modules.match.entity.MatchTotal">
+		SELECT *
+		FROM  match_total
+		WHERE
+			 sportsman_id = #{id}
+	</select>
+
+	<update id="updateByMainId" parameterType="java.lang.String">
+		update match_total
+			set card =
+			(select card_number
+			from sportsman_registration_entry
+			where id = #{id}
+	</update>
+</mapper>

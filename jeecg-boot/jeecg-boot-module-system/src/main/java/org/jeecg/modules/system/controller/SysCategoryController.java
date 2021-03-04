@@ -136,8 +136,10 @@ public class SysCategoryController {
 		if(sysCategory==null) {
 			result.error500("未找到对应实体");
 		}else {
-			this.sysCategoryService.deleteSysCategory(id);
-			result.success("删除成功!");
+			boolean ok = sysCategoryService.removeById(id);
+			if(ok) {
+				result.success("删除成功!");
+			}
 		}
 		
 		return result;
@@ -154,7 +156,7 @@ public class SysCategoryController {
 		if(ids==null || "".equals(ids.trim())) {
 			result.error500("参数不识别！");
 		}else {
-			this.sysCategoryService.deleteSysCategory(ids);
+			this.sysCategoryService.removeByIds(Arrays.asList(ids.split(",")));
 			result.success("删除成功!");
 		}
 		return result;
@@ -459,26 +461,6 @@ public class SysCategoryController {
 		 return result;
 	 }
 
-	 /**
-	  * 根据父级id批量查询子节点
-	  * @param parentIds
-	  * @return
-	  */
-	 @GetMapping("/getChildListBatch")
-	 public Result getChildListBatch(@RequestParam("parentIds") String parentIds) {
-		 try {
-			 QueryWrapper<SysCategory> queryWrapper = new QueryWrapper<>();
-			 List<String> parentIdList = Arrays.asList(parentIds.split(","));
-			 queryWrapper.in("pid", parentIdList);
-			 List<SysCategory> list = sysCategoryService.list(queryWrapper);
-			 IPage<SysCategory> pageList = new Page<>(1, 10, list.size());
-			 pageList.setRecords(list);
-			 return Result.OK(pageList);
-		 } catch (Exception e) {
-			 log.error(e.getMessage(), e);
-			 return Result.error("批量查询子节点失败：" + e.getMessage());
-		 }
-	 }
 
 
 }

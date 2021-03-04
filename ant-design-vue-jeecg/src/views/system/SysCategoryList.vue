@@ -91,7 +91,6 @@
         url: {
           list: "/sys/category/rootList",
           childList: "/sys/category/childList",
-          getChildListBatch: "/sys/category/getChildListBatch",
           delete: "/sys/category/delete",
           deleteBatch: "/sys/category/deleteBatch",
           exportXlsUrl: "/sys/category/exportXls",
@@ -126,6 +125,7 @@
           this.ipagination.current=1
         }
         this.loading = true
+        this.expandedRowKeys = []
         let params = this.getQueryParams()
         return new Promise((resolve) => {
           getAction(this.url.list,params).then(res=>{
@@ -134,9 +134,7 @@
               if(Number(result.total)>0){
                 this.ipagination.total = Number(result.total)
                 this.dataSource = this.getDataByResult(res.result.records)
-                //update--begin--autor:lvdandan-----date:20201204------for：JT-31 删除成功后默认展开已展开信息
-                return this.loadDataByExpandedRows(this.dataSource)
-                //update--end--autor:lvdandan-----date:20201204------for：JT-31 删除成功后默认展开已展开信息
+                resolve()
               }else{
                 this.ipagination.total=0
                 this.dataSource=[]
@@ -144,7 +142,6 @@
             }else{
               this.$message.warning(res.message)
             }
-          }).finally(()=>{
             this.loading = false
           })
         })
@@ -268,9 +265,15 @@
         let that = this;
         deleteAction(that.url.delete, {id: record.id}).then((res) => {
           if (res.success) {
-            //update--begin--autor:lvdandan-----date:20201204------for：JT-31 删除成功后默认展开已展开信息
-            that.loadData();
-            //update--end--autor:lvdandan-----date:20201204------for：JT-31 删除成功后默认展开已展开信息
+            if (record.pid && record.pid!='0') {
+              let formData = {pid: record.pid};
+              that.$message.success(res.message);
+              that.subExpandedKeys = [];
+              that.getExpandKeysByPid(record.pid, this.dataSource, this.dataSource)
+              that.addOk(formData, this.subExpandedKeys.reverse())
+            } else {
+              that.loadData();
+            }
           } else {
             that.$message.warning(res.message);
           }
@@ -287,43 +290,6 @@
               this.getExpandKeysByPid(pid,arr[i].children,all)
             }
           }
-        }
-      },
-      // 根据已展开的行查询数据（用于保存后刷新时异步加载子级的数据）
-      loadDataByExpandedRows(dataList) {
-        if (this.expandedRowKeys.length > 0) {
-          return getAction(this.url.getChildListBatch,{ parentIds: this.expandedRowKeys.join(',') }).then(res=>{
-            if (res.success && res.result.records.length>0) {
-              //已展开的数据批量子节点
-              let records = res.result.records
-              const listMap = new Map();
-              for (let item of records) {
-                let pid = item[this.pidField];
-                if (this.expandedRowKeys.join(',').includes(pid)) {
-                  let mapList = listMap.get(pid);
-                  if (mapList == null) {
-                    mapList = [];
-                  }
-                  mapList.push(item);
-                  listMap.set(pid, mapList);
-                }
-              }
-              let childrenMap = listMap;
-              let fn = (list) => {
-                if(list) {
-                  list.forEach(data => {
-                    if (this.expandedRowKeys.includes(data.id)) {
-                      data.children = this.getDataByResult(childrenMap.get(data.id))
-                      fn(data.children)
-                    }
-                  })
-                }
-              }
-              fn(dataList)
-            }
-          })
-        } else {
-          return Promise.resolve()
         }
       },
       

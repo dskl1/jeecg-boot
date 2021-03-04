@@ -1,11 +1,9 @@
 package org.jeecg.modules.system.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.jeecg.common.api.vo.Result;
-import org.jeecg.common.util.SqlInjectionUtil;
 import org.jeecg.modules.system.mapper.SysDictMapper;
 import org.jeecg.modules.system.model.DuplicateCheckVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Title: DuplicateCheckAction
@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 public class DuplicateCheckController {
 
 	@Autowired
-    SysDictMapper sysDictMapper;
+	SysDictMapper sysDictMapper;
 
 	/**
 	 * 校验数据是否在系统中是否存在
@@ -42,10 +42,6 @@ public class DuplicateCheckController {
 		Long num = null;
 
 		log.info("----duplicate check------："+ duplicateCheckVo.toString());
-		//关联表字典（举例：sys_user,realname,id）
-		//SQL注入校验（只限制非法串改数据库）
-		final String[] sqlInjCheck = {duplicateCheckVo.getTableName(),duplicateCheckVo.getFieldName()};
-		SqlInjectionUtil.filterContent(sqlInjCheck);
 		if (StringUtils.isNotBlank(duplicateCheckVo.getDataId())) {
 			// [2].编辑页面校验
 			num = sysDictMapper.duplicateCheckCountSql(duplicateCheckVo);

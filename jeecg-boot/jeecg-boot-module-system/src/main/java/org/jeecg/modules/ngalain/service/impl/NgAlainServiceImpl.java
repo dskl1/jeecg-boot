@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service("ngAlainService")
+@Transactional
 public class NgAlainServiceImpl implements NgAlainService {
     @Autowired
     private ISysPermissionService sysPermissionService;

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.match.mapper.MatchPlanMapper">
+
+    <!-- 根据运动员Id查询 -->
+    <select id="getMatchBySportsmanId" resultType="org.jeecg.modules.match.entity.MatchPlan">
+    select * from match_plan where id in (select match_id from match_member_connect where sportsman_id=#{sportsmanId})
+    <if test="matchName!=null and matchName!=''">
+        and matchName = #{matchName}
+    </if>
+</select>
+
+</mapper>

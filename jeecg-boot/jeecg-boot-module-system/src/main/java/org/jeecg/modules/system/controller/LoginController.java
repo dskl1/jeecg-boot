@@ -73,21 +73,21 @@ public class LoginController {
 		//update-begin--Author:scott  Date:20190805 for：暂时注释掉密码加密逻辑，有点问题
 
 		//update-begin-author:taoyan date:20190828 for:校验验证码
-        String captcha = sysLoginModel.getCaptcha();
-        if(captcha==null){
-            result.error500("验证码无效");
-            return result;
-        }
-        String lowerCaseCaptcha = captcha.toLowerCase();
-		String realKey = MD5Util.MD5Encode(lowerCaseCaptcha+sysLoginModel.getCheckKey(), "utf-8");
-		Object checkCode = redisUtil.get(realKey);
+//        String captcha = sysLoginModel.getCaptcha();
+//        if(captcha==null){
+//            result.error500("验证码无效");
+//            return result;
+//        }
+//        String lowerCaseCaptcha = captcha.toLowerCase();
+//		String realKey = MD5Util.MD5Encode(lowerCaseCaptcha+sysLoginModel.getCheckKey(), "utf-8");
+//		Object checkCode = redisUtil.get(realKey);
 		//当进入登录页时，有一定几率出现验证码错误 #1714
-		if(checkCode==null || !checkCode.toString().equals(lowerCaseCaptcha)) {
-			result.error500("验证码错误");
-			return result;
-		}
+//		if(checkCode==null || !checkCode.toString().equals(lowerCaseCaptcha)) {
+//			result.error500("验证码错误");
+//			return result;
+//		}
 		//update-end-author:taoyan date:20190828 for:校验验证码
-		
+
 		//1. 校验用户是否有效
 		//update-begin-author:wangshuai date:20200601 for: 登录代码验证用户是否注销bug，if条件永远为false
 		LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
@@ -98,7 +98,7 @@ public class LoginController {
 		if(!result.isSuccess()) {
 			return result;
 		}
-		
+
 		//2. 校验用户名或密码是否正确
 		String userpassword = PasswordUtil.encrypt(username, password, sysUser.getSalt());
 		String syspassword = sysUser.getPassword();
@@ -106,7 +106,7 @@ public class LoginController {
 			result.error500("用户名或密码错误");
 			return result;
 		}
-				
+
 		//用户登录信息
 		userInfo(sysUser, result);
 		//update-begin--Author:wangshuai  Date:20200714  for：登录日志没有记录人员
@@ -116,7 +116,7 @@ public class LoginController {
         //update-end--Author:wangshuai  Date:20200714  for：登录日志没有记录人员
 		return result;
 	}
-	
+
 	/**
 	 * 退出登录
 	 * @param request
@@ -150,7 +150,7 @@ public class LoginController {
 	    	return Result.error("Token无效!");
 	    }
 	}
-	
+
 	/**
 	 * 获取访问量
 	 * @return
@@ -181,7 +181,7 @@ public class LoginController {
 		result.success("登录成功");
 		return result;
 	}
-	
+
 	/**
 	 * 获取访问量
 	 * @return
@@ -202,8 +202,8 @@ public class LoginController {
 		result.setResult(oConvertUtils.toLowerCasePageList(list));
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 登陆成功选择用户当前部门
 	 * @param user
@@ -228,7 +228,7 @@ public class LoginController {
 
 	/**
 	 * 短信登录接口
-	 * 
+	 *
 	 * @param jsonObject
 	 * @return
 	 */
@@ -277,7 +277,7 @@ public class LoginController {
 					}
 					return result;
 				}
-				
+
 				/**
 				 * smsmode 短信模板方式  0 .登录模板、1.注册模板、2.忘记密码模板
 				 */
@@ -309,11 +309,11 @@ public class LoginController {
 		}
 		return result;
 	}
-	
+
 
 	/**
 	 * 手机号登录接口
-	 * 
+	 *
 	 * @param jsonObject
 	 * @return
 	 */
@@ -322,20 +322,20 @@ public class LoginController {
 	public Result<JSONObject> phoneLogin(@RequestBody JSONObject jsonObject) {
 		Result<JSONObject> result = new Result<JSONObject>();
 		String phone = jsonObject.getString("mobile");
-		
+
 		//校验用户有效性
 		SysUser sysUser = sysUserService.getUserByPhone(phone);
 		result = sysUserService.checkUserIsEffective(sysUser);
 		if(!result.isSuccess()) {
 			return result;
 		}
-		
+
 		String smscode = jsonObject.getString("captcha");
 		Object code = redisUtil.get(phone);
-		if (!smscode.equals(code)) {
-			result.setMessage("手机验证码错误");
-			return result;
-		}
+//		if (!smscode.equals(code)) {
+//			result.setMessage("手机验证码错误");
+//			return result;
+//		}
 		//用户信息
 		userInfo(sysUser, result);
 		//添加日志
@@ -425,7 +425,7 @@ public class LoginController {
 		}
 		return res;
 	}
-	
+
 	/**
 	 * app登录
 	 * @param sysLoginModel
@@ -437,14 +437,14 @@ public class LoginController {
 		Result<JSONObject> result = new Result<JSONObject>();
 		String username = sysLoginModel.getUsername();
 		String password = sysLoginModel.getPassword();
-		
+
 		//1. 校验用户是否有效
 		SysUser sysUser = sysUserService.getUserByName(username);
 		result = sysUserService.checkUserIsEffective(sysUser);
 		if(!result.isSuccess()) {
 			return result;
 		}
-		
+
 		//2. 校验用户名或密码是否正确
 		String userpassword = PasswordUtil.encrypt(username, password, sysUser.getSalt());
 		String syspassword = sysUser.getPassword();
@@ -452,7 +452,7 @@ public class LoginController {
 			result.error500("用户名或密码错误");
 			return result;
 		}
-		
+
 		String orgCode = sysUser.getOrgCode();
 		if(oConvertUtils.isEmpty(orgCode)) {
 			//如果当前用户无选择部门 查看部门关联信息
@@ -468,7 +468,7 @@ public class LoginController {
 		JSONObject obj = new JSONObject();
 		//用户登录信息
 		obj.put("userInfo", sysUser);
-		
+
 		// 生成token
 		String token = JwtUtil.sign(username, syspassword);
 		// 设置超时时间
@@ -493,15 +493,15 @@ public class LoginController {
 	public Result<?> checkCaptcha(@RequestBody SysLoginModel sysLoginModel){
 		String captcha = sysLoginModel.getCaptcha();
 		String checkKey = sysLoginModel.getCheckKey();
-		if(captcha==null){
-			return Result.error("验证码无效");
-		}
+//		if(captcha==null){
+//			return Result.error("验证码无效");
+//		}
 		String lowerCaseCaptcha = captcha.toLowerCase();
 		String realKey = MD5Util.MD5Encode(lowerCaseCaptcha+checkKey, "utf-8");
 		Object checkCode = redisUtil.get(realKey);
-		if(checkCode==null || !checkCode.equals(lowerCaseCaptcha)) {
-			return Result.error("验证码错误");
-		}
+//		if(checkCode==null || !checkCode.equals(lowerCaseCaptcha)) {
+//			return Result.error("验证码错误");
+//		}
 		return Result.ok();
 	}
 

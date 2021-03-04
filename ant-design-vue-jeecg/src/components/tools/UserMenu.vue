@@ -60,7 +60,7 @@
         </a-menu-item>
         <a-menu-item key="5" @click="updateCurrentDepart">
           <a-icon type="cluster"/>
-          <span>切换部门</span>
+          <span>切换场馆</span>
         </a-menu-item>
         <a-menu-item key="6" @click="clearCache">
           <a-icon type="sync"/>

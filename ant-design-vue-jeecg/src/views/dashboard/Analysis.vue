@@ -1,6 +1,7 @@
 <template>
   <div>
-    <index-chart v-if="indexStyle==1"></index-chart>
+    <!--    <index-chart v-if="indexStyle==1"></index-chart>-->
+    <HeadDisplayList v-if="indexStyle==1"></HeadDisplayList>
     <index-bdc v-if="indexStyle==2"></index-bdc>
     <index-task v-if="indexStyle==3"></index-task>
     <div style="width: 100%;text-align: right;margin-top: 20px">
@@ -18,13 +19,15 @@
   import IndexChart from './IndexChart'
   import IndexTask from "./IndexTask"
   import IndexBdc from './IndexBdc'
+  import HeadDisplayList from '../salary/HeadDisplayList'
 
   export default {
     name: "Analysis",
     components: {
       IndexChart,
       IndexTask,
-      IndexBdc
+      IndexBdc,
+      HeadDisplayList
     },
     data() {
       return {

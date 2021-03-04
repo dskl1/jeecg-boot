@@ -25,7 +25,7 @@ public class TestSocketController {
     	obj.put(WebsocketConst.MSG_CMD, WebsocketConst.CMD_TOPIC);
 		obj.put(WebsocketConst.MSG_ID, "M0001");
 		obj.put(WebsocketConst.MSG_TXT, message);
-    	webSocket.sendMessage(obj.toJSONString());
+    	webSocket.sendAllMessage(obj.toJSONString());
         result.setResult("群发！");
         return result;
     }
@@ -40,7 +40,7 @@ public class TestSocketController {
     	obj.put(WebsocketConst.MSG_USER_ID, userId);
 		obj.put(WebsocketConst.MSG_ID, "M0001");
 		obj.put(WebsocketConst.MSG_TXT, message);
-        webSocket.sendMessage(userId, obj.toJSONString());
+        webSocket.sendOneMessage(userId, obj.toJSONString());
         result.setResult("单发");
         return result;
     }

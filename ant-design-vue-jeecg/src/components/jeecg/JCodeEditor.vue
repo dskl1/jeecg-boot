@@ -251,9 +251,6 @@
           },
           style: {}
         }
-        if(isIE() || isIE11()){
-          props.style['height'] = '240px'
-        }
         if (this.fullCoder) {
           props.style['z-index'] = this.zIndex
         }

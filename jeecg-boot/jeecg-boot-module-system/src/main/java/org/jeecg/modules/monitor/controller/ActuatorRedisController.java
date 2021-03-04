@@ -1,7 +1,15 @@
 package org.jeecg.modules.monitor.controller;
 
-import com.alibaba.fastjson.JSONArray;
-import lombok.extern.slf4j.Slf4j;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.swing.filechooser.FileSystemView;
+
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.modules.monitor.domain.RedisInfo;
 import org.jeecg.modules.monitor.service.RedisService;
@@ -10,14 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.swing.filechooser.FileSystemView;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
@@ -42,35 +43,6 @@ public class ActuatorRedisController {
     @GetMapping("/keysSize")
     public Map<String, Object> getKeysSize() throws Exception {
         return redisService.getKeysSize();
-    }
-
-    /**
-     * 获取redis key数量 for 报表
-     * @return
-     * @throws Exception
-     */
-    @GetMapping("/keysSizeForReport")
-    public Map<String, JSONArray> getKeysSizeReport() throws Exception {
-		return redisService.getMapForReport("1");
-    }
-    /**
-     * 获取redis 内存 for 报表
-     *
-     * @return
-     * @throws Exception
-     */
-    @GetMapping("/memoryForReport")
-    public Map<String, JSONArray> memoryForReport() throws Exception {
-		return redisService.getMapForReport("2");
-    }
-    /**
-     * 获取redis 全部信息 for 报表
-     * @return
-     * @throws Exception
-     */
-    @GetMapping("/infoForReport")
-    public Map<String, JSONArray> infoForReport() throws Exception {
-		return redisService.getMapForReport("3");
     }
 
     @GetMapping("/memoryInfo")

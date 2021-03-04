@@ -17,8 +17,8 @@
         :type="collapsed ? 'menu-unfold' : 'menu-fold'"
         @click="toggle"/>
 
-      <span v-if="device === 'desktop'">欢迎进入 Jeecg-Boot 企业级快速开发平台</span>
-      <span v-else>Jeecg-Boot</span>
+      <span v-if="device === 'desktop'">欢迎进入易云运动员管理平台</span>
+      <span v-else>易云运动员管理平台</span>
 
       <user-menu :theme="theme"/>
     </div>
@@ -42,7 +42,6 @@
         <user-menu class="header-index-right" :theme="theme" :style="topMenuStyle.headerIndexRight"/>
       </div>
     </div>
-
   </a-layout-header>
 </template>
 

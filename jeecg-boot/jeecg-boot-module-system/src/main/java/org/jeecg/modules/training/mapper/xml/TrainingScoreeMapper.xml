@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.training.mapper.TrainingScoreeMapper">
+
+	<delete id="deleteByMainId" parameterType="java.lang.String">
+		DELETE
+		FROM  training_scoree
+		WHERE
+			 sportsman_id = #{mainId}
+	</delete>
+
+	<select id="selectByMainId" parameterType="java.lang.String" resultType="org.jeecg.modules.training.entity.TrainingScoree">
+		SELECT *
+		FROM  training_scoree
+		WHERE
+			 sportsman_id = #{mainId}
+	</select>
+
+	<insert id="insertScore" parameterType="java.lang.String">
+		insert ignore into training_scoree
+			select r.id,t.id,replace(r.sub_second,':',''),r.create_by,r.create_time,r.update_by,r.update_time,r.sys_org_code
+			from training_distance t,rest_api_copy1 r
+			where r.status = 1003 and t.id = #{mainId}
+	</insert>
+</mapper>

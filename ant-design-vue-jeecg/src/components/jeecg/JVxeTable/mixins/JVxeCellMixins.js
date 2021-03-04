@@ -149,8 +149,6 @@ export default {
     packageEvent(name, event = {}) {
       event.row = this.row
       event.column = this.column
-      //online增强参数兼容
-      event.column['key'] = this.column['property']
       event.cellTarget = this
       if (!event.type) {
         event.type = name

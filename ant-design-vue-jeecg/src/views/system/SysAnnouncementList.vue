@@ -283,12 +283,6 @@
       syncHeadNotic(anntId){
         getAction("sys/annountCement/syncNotic",{anntId:anntId})
       },
-      handleDetail:function(record){
-        this.$refs.modalForm.edit(record);
-        this.$refs.modalForm.title="详情";
-        this.$refs.modalForm.disableSubmit = true;
-        this.$refs.modalForm.disabled = true;
-      },
     }
   }
 </script>

@@ -121,7 +121,7 @@
         },
         cgRpConfigId:"",
         modalWidth:MODAL_WIDTH,
-        tableScroll:{x:true},
+        tableScroll:{x:MODAL_WIDTH-100},
         dynamicParam:{}
 
       }

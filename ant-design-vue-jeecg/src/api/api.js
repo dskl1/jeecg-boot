@@ -7,18 +7,21 @@ const addRole = (params)=>postAction("/sys/role/add",params);
 const editRole = (params)=>putAction("/sys/role/edit",params);
 const checkRoleCode = (params)=>getAction("/sys/role/checkRoleCode",params);
 const queryall = (params)=>getAction("/sys/role/queryall",params);
+const queryalll = (params)=>getAction("/match/matchPlan/queryalll",params);
+const queryallll = (params)=>getAction("/match/matchMember/queryallll",params);
+
 
 //用户管理
 const addUser = (params)=>postAction("/sys/user/add",params);
 const editUser = (params)=>putAction("/sys/user/edit",params);
 const queryUserRole = (params)=>getAction("/sys/user/queryUserRole",params);
+const queryMatchMember = (params)=>getAction("/match/matchPlan/queryMatchMember",params);
 const getUserList = (params)=>getAction("/sys/user/list",params);
 const frozenBatch = (params)=>putAction("/sys/user/frozenBatch",params);
 //验证用户是否存在
 const checkOnlyUser = (params)=>getAction("/sys/user/checkOnlyUser",params);
 //改变密码
 const changePassword = (params)=>putAction("/sys/user/changePassword",params);
-
 //权限管理
 const addPermission= (params)=>postAction("/sys/permission/add",params);
 const editPermission= (params)=>putAction("/sys/permission/edit",params);
@@ -26,6 +29,7 @@ const getPermissionList = (params)=>getAction("/sys/permission/list",params);
 const getSystemMenuList = (params)=>getAction("/sys/permission/getSystemMenuList",params);
 const getSystemSubmenu = (params)=>getAction("/sys/permission/getSystemSubmenu",params);
 const getSystemSubmenuBatch = (params) => getAction('/sys/permission/getSystemSubmenuBatch', params)
+
 const queryTreeList = (params)=>getAction("/sys/permission/queryTreeList",params);
 const queryTreeListForRole = (params)=>getAction("/sys/role/queryTreeList",params);
 const queryListAsync = (params)=>getAction("/sys/permission/queryListAsync",params);
@@ -52,7 +56,6 @@ const saveDeptRolePermission = (params)=>postAction("/sys/sysDepartPermission/sa
 const queryMyDepartTreeList = (params)=>getAction("/sys/sysDepart/queryMyDeptTreeList",params);
 
 //日志管理
-//const getLogList = (params)=>getAction("/sys/log/list",params);
 const deleteLog = (params)=>deleteAction("/sys/log/delete",params);
 const deleteLogList = (params)=>deleteAction("/sys/log/deleteBatch",params);
 
@@ -80,12 +83,11 @@ const doReovkeData = (params)=>getAction("/sys/annountCement/doReovkeData",param
 //获取系统访问量
 const getLoginfo = (params)=>getAction("/sys/loginfo",params);
 const getVisitInfo = (params)=>getAction("/sys/visitInfo",params);
-
 // 根据部门主键查询用户信息
 const queryUserByDepId = (params)=>getAction("/sys/user/queryUserByDepId",params);
-
 // 重复校验
 const duplicateCheck = (params)=>getAction("/sys/duplicate/check",params);
+const duplicateCheckk = (params)=>getAction("/sys/duplicate/checkk",params);
 // 加载分类字典
 const loadCategoryData = (params)=>getAction("/sys/category/loadAllData",params);
 const checkRuleByCode = (params) => getAction('/sys/checkRule/checkByCode', params)
@@ -107,8 +109,11 @@ export {
   addUser,
   editUser,
   queryUserRole,
+  queryMatchMember,
   getUserList,
   queryall,
+  queryalll,
+  queryallll,
   frozenBatch,
   checkOnlyUser,
   changePassword,
@@ -141,6 +146,7 @@ export {
   getVisitInfo,
   queryUserByDepId,
   duplicateCheck,
+  duplicateCheckk,
   queryTreeListForRole,
   getSystemMenuList,
   getSystemSubmenu,

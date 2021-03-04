@@ -1,6 +1,9 @@
 package org.jeecg.common.api;
 
-import org.jeecg.common.system.vo.*;
+import org.jeecg.common.system.vo.DynamicDataSourceModel;
+import org.jeecg.common.system.vo.LoginUser;
+import org.jeecg.common.system.vo.SysPermissionDataRuleModel;
+import org.jeecg.common.system.vo.SysUserCacheInfo;
 
 import java.util.List;
 import java.util.Set;
@@ -77,21 +80,5 @@ public interface CommonAPI {
      * @return
      */
     SysUserCacheInfo getCacheUser(String username);
-
-    /**
-     * 10获取数据字典
-     * @param code
-     * @return
-     */
-    public List<DictModel> queryDictItemsByCode(String code);
-
-    /**
-     * 13获取表数据字典
-     * @param table
-     * @param text
-     * @param code
-     * @return
-     */
-    List<DictModel> queryTableDictItemsByCode(String table, String text, String code);
 
 }

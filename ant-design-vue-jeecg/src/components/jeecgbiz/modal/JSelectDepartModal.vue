@@ -6,7 +6,6 @@
     :confirmLoading="confirmLoading"
     @ok="handleSubmit"
     @cancel="handleCancel"
-    wrapClassName="j-depart-select-modal"
     switchFullscreen
     cancelText="关闭">
     <a-spin tip="Loading..." :spinning="false">

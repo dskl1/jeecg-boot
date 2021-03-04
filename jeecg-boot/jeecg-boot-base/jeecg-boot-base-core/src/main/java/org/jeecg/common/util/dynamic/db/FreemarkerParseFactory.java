@@ -5,7 +5,9 @@ import freemarker.core.ParseException;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jeecgframework.codegenerate.generate.util.SimpleFormat;
 
 import java.io.StringWriter;

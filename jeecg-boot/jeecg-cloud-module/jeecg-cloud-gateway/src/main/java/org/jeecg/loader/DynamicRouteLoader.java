@@ -86,6 +86,9 @@ public class DynamicRouteLoader implements ApplicationEventPublisherAware {
         String dataType = GatewayRoutersConfiguration.DATA_TYPE;
         if (!RouterDataType.yml.toString().endsWith(dataType)) {
             this.init();
+            // 触发默认路由刷新事件,刷新缓存路由
+            this.publisher.publishEvent(new RefreshRoutesEvent(this));
+            log.info("路由已刷新..............");
         }
         return Mono.empty();
     }
@@ -132,7 +135,7 @@ public class DynamicRouteLoader implements ApplicationEventPublisherAware {
         if (configService == null) {
             log.warn("initConfigService fail");
         }
-        String configInfo = redisClient.get("gateway_routes");
+        String configInfo = redisClient.get("geteway_routes");
         if (StringUtils.isNotBlank(configInfo)) {
             log.info("获取网关当前配置:\r\n{}", configInfo);
             JSONArray array = JSON.parseArray(configInfo);

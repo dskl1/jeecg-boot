@@ -11,7 +11,7 @@
               size="large"
               v-decorator="['username',validatorRules.username,{ validator: this.handleUsernameOrEmail }]"
               type="text"
-              placeholder="请输入帐户名 / admin">
+              placeholder="请输入帐户名">
               <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
             </a-input>
           </a-form-item>
@@ -22,76 +22,76 @@
               size="large"
               type="password"
               autocomplete="false"
-              placeholder="密码 / 123456">
+              placeholder="密码">
               <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
             </a-input>
           </a-form-item>
 
-          <a-row :gutter="0">
-            <a-col :span="16">
-              <a-form-item>
-                <a-input
-                  v-decorator="['inputCode',validatorRules.inputCode]"
-                  size="large"
-                  type="text"
-                  @change="inputCodeChange"
-                  placeholder="请输入验证码">
-                  <a-icon slot="prefix" type="smile" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-                </a-input>
-              </a-form-item>
-            </a-col>
-            <a-col :span="8" style="text-align: right">
-              <img v-if="requestCodeSuccess" style="margin-top: 2px;" :src="randCodeImage" @click="handleChangeCheckCode"/>
-              <img v-else style="margin-top: 2px;" src="../../assets/checkcode.png" @click="handleChangeCheckCode"/>
-            </a-col>
-          </a-row>
+<!--          <a-row :gutter="0">-->
+<!--            <a-col :span="16">-->
+<!--              <a-form-item>-->
+<!--                <a-input-->
+<!--                  v-decorator="['inputCode',validatorRules.inputCode]"-->
+<!--                  size="large"-->
+<!--                  type="text"-->
+<!--                  @change="inputCodeChange"-->
+<!--                  placeholder="请输入验证码">-->
+<!--                  <a-icon slot="prefix" type="smile" :style="{ color: 'rgba(0,0,0,.25)' }"/>-->
+<!--                </a-input>-->
+<!--              </a-form-item>-->
+<!--            </a-col>-->
+<!--            <a-col :span="8" style="text-align: right">-->
+<!--              <img v-if="requestCodeSuccess" style="margin-top: 2px;" :src="randCodeImage" @click="handleChangeCheckCode"/>-->
+<!--              <img v-else style="margin-top: 2px;" src="../../assets/checkcode.png" @click="handleChangeCheckCode"/>-->
+<!--            </a-col>-->
+<!--          </a-row>-->
 
 
         </a-tab-pane>
-        <a-tab-pane key="tab2" tab="手机号登录">
-          <a-form-item>
-            <a-input
-              v-decorator="['mobile',validatorRules.mobile]"
-              size="large"
-              type="text"
-              placeholder="手机号">
-              <a-icon slot="prefix" type="mobile" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-            </a-input>
-          </a-form-item>
+<!--        <a-tab-pane key="tab2" tab="手机号登录">-->
+<!--          <a-form-item>-->
+<!--            <a-input-->
+<!--              v-decorator="['mobile',validatorRules.mobile]"-->
+<!--              size="large"-->
+<!--              type="text"-->
+<!--              placeholder="手机号">-->
+<!--              <a-icon slot="prefix" type="mobile" :style="{ color: 'rgba(0,0,0,.25)' }"/>-->
+<!--            </a-input>-->
+<!--          </a-form-item>-->
 
-          <a-row :gutter="16">
-            <a-col class="gutter-row" :span="16">
-              <a-form-item>
-                <a-input
-                  v-decorator="['captcha',validatorRules.captcha]"
-                  size="large"
-                  type="text"
-                  placeholder="请输入验证码">
-                  <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-                </a-input>
-              </a-form-item>
-            </a-col>
-            <a-col class="gutter-row" :span="8">
-              <a-button
-                class="getCaptcha"
-                tabindex="-1"
-                :disabled="state.smsSendBtn"
-                @click.stop.prevent="getCaptcha"
-                v-text="!state.smsSendBtn && '获取验证码' || (state.time+' s')"></a-button>
-            </a-col>
-          </a-row>
-        </a-tab-pane>
+<!--          <a-row :gutter="16">-->
+<!--            <a-col class="gutter-row" :span="16">-->
+<!--              <a-form-item>-->
+<!--                <a-input-->
+<!--                  v-decorator="['captcha',validatorRules.captcha]"-->
+<!--                  size="large"-->
+<!--                  type="text"-->
+<!--                  placeholder="请输入验证码">-->
+<!--                  <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }"/>-->
+<!--                </a-input>-->
+<!--              </a-form-item>-->
+<!--            </a-col>-->
+<!--            <a-col class="gutter-row" :span="8">-->
+<!--              <a-button-->
+<!--                class="getCaptcha"-->
+<!--                tabindex="-1"-->
+<!--                :disabled="state.smsSendBtn"-->
+<!--                @click.stop.prevent="getCaptcha"-->
+<!--                v-text="!state.smsSendBtn && '获取验证码' || (state.time+' s')"></a-button>-->
+<!--            </a-col>-->
+<!--          </a-row>-->
+<!--        </a-tab-pane>-->
       </a-tabs>
 
-      <a-form-item>
-        <a-checkbox v-decorator="['rememberMe', {initialValue: true, valuePropName: 'checked'}]" >自动登录</a-checkbox>
-        <router-link :to="{ name: 'alteration'}" class="forge-password" style="float: right;">
-          忘记密码
-        </router-link>
-       <router-link :to="{ name: 'register'}" class="forge-password" style="float: right;margin-right: 10px" >
-          注册账户
-        </router-link>
-      </a-form-item>
+<!--      <a-form-item>-->
+<!--        <a-checkbox v-decorator="['rememberMe', {initialValue: true, valuePropName: 'checked'}]" >自动登录</a-checkbox>-->
+<!--        <router-link :to="{ name: 'alteration'}" class="forge-password" style="float: right;">-->
+<!--          忘记密码-->
+<!--        </router-link>-->
+<!--       <router-link :to="{ name: 'register'}" class="forge-password" style="float: right;margin-right: 10px" >-->
+<!--          注册账户-->
+<!--        </router-link>-->
+<!--      </a-form-item>-->
 
       <a-form-item style="margin-top:24px">
         <a-button
@@ -157,8 +157,8 @@
           username:{rules: [{ required: true, message: '请输入用户名!'},{validator: this.handleUsernameOrEmail}]},
           password:{rules: [{ required: true, message: '请输入密码!',validator: 'click'}]},
           mobile:{rules: [{validator:this.validateMobile}]},
-          captcha:{rule: [{ required: true, message: '请输入验证码!'}]},
-          inputCode:{rules: [{ required: true, message: '请输入验证码!'}]}
+          captcha:{rule: [{ required: false, message: '请输入验证码!'}]},
+          inputCode:{rules: [{ required: false, message: '请输入验证码!'}]}
         },
         verifiedCode:"",
         inputCodeContent:"",
@@ -209,8 +209,8 @@
               loginParams.password = values.password
               loginParams.remember_me = values.rememberMe
               // update-begin- --- author:scott ------ date:20190805 ---- for:密码加密逻辑暂时注释掉，有点问题
-              loginParams.captcha = that.inputCodeContent
-              loginParams.checkKey = that.currdatetime
+              // loginParams.captcha = that.inputCodeContent
+              // loginParams.checkKey = that.currdatetime
               console.log("登录参数",loginParams)
               that.Login(loginParams).then((res) => {
                 this.$refs.loginSelect.show(res.result)

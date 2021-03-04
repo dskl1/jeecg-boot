@@ -54,10 +54,6 @@ import {
   Carousel,
   Pagination,
   FormModel,
-  Cascader,
-  Slider,
-  Transfer,
-  Rate
 } from 'ant-design-vue'
 import Viser from 'viser-vue'
 
@@ -108,10 +104,6 @@ Vue.use(TreeSelect)
 Vue.use(Carousel)
 Vue.use(Pagination)
 Vue.use(FormModel)
-Vue.use(Cascader)
-Vue.use(Slider)
-Vue.use(Transfer)
-Vue.use(Rate)
 
 Vue.prototype.$confirm = Modal.confirm
 Vue.prototype.$message = message

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.statistics.mapper.D250aMapper">
+
+	<delete id="deleteByMainId" parameterType="java.lang.String">
+		DELETE
+		FROM  d250
+		WHERE
+			 sportsman_id = #{id}
+	</delete>
+
+	<select id="selectByMainId" parameterType="java.lang.String" resultType="org.jeecg.modules.statistics.entity.D250a">
+		SELECT *
+		FROM  d250
+		WHERE
+			 sportsman_id = #{id}
+	</select>
+
+	<!-- 训练统计 -->
+	<select id="findTrainingCount" resultType="java.util.HashMap">
+		select
+		min(case when  d250.training_item='自由泳' then training_scoree.training_score end) as 250米自由泳,
+		min(case when  d250.training_item='仰泳' then training_scoree.training_score end) as 250米仰泳,
+		min(case when  d250.training_item='蛙泳' then training_scoree.training_score end) as 250米蛙泳,
+		min(case when  d250.training_item='蝶泳' then training_scoree.training_score end) as 250米蝶泳,
+		min(case when  d250.training_item='自测' then training_scoree.training_score else 0 end) as 250米自测,
+		DATE_FORMAT(d250.training_date, '%Y-%m-%d') as tian,
+		DATE_FORMAT(d250.training_date, '%m-%d') as type
+		from training_scoree,d250
+		where (training_scoree.sportsman_id,d250.training_date)in(
+		select id,training_date
+		from d250
+		where training_date &gt;= #{dayStart} and training_date &lt; #{dayEnd} and sportsman_id = #{mainId})
+		group by tian,type
+		order by tian asc
+    </select>
+</mapper>

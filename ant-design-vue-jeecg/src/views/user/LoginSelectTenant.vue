@@ -183,8 +183,8 @@
           return false
         }
         this.departResolve().then(()=>{
-          this.$store.dispatch('saveTenant', this.tenant_id);
           if(this.isMultiTenant){
+            this.$store.dispatch('saveTenant', this.tenant_id);
             this.$emit('success')
           }else{
             this.$emit('success')

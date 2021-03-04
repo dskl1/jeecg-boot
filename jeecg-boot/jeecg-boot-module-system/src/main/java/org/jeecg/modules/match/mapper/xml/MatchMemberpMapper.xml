@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.match.mapper.MatchMemberpMapper">
+
+    <select id="selectByDivide" parameterType="java.lang.String" resultType="org.jeecg.modules.match.entity.MatchMemberp">
+		select
+       max(case when rowid%2=1 then name end) name1,
+       max(case when rowid%2=0 then name end) name2
+
+        from sportsman_registration_entry
+        group by floor((rowid-1)/2)
+	</select>
+
+</mapper>

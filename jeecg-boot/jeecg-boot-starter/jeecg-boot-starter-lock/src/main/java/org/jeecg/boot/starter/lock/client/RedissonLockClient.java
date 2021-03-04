@@ -1,10 +1,12 @@
 package org.jeecg.boot.starter.lock.client;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.jeecg.boot.starter.lock.core.RedissonManager;
 import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,17 +17,19 @@ import java.util.concurrent.TimeUnit;
  * @date 2020-11-11
  */
 @Slf4j
-@Component
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class RedissonLockClient {
 
-    @Autowired
-    private RedissonClient redissonClient;
+    RedissonManager redissonManager;
 
     /**
      * 获取锁
      */
     public RLock getLock(String lockKey) {
-        return redissonClient.getLock(lockKey);
+        return redissonManager.getRedisson().getLock(lockKey);
     }
 
     /**
@@ -92,7 +96,7 @@ public class RedissonLockClient {
      * @param lockName 锁名称
      */
     public void unlock(String lockName) {
-        redissonClient.getLock(lockName).unlock();
+        redissonManager.getRedisson().getLock(lockName).unlock();
     }
 
 
